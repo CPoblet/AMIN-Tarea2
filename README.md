@@ -1,31 +1,33 @@
-# Tarea 1 - Trabajo de Programación 1
+# Tarea 2 - Trabajo de Programación 2
 # Algoritmos Metaheurísticos Inspirados en la Naturaleza
 ## Propósito del Trabajo
-Desarrollar un programa utilizando el lenguaje de programación Python3 que implemente el
-problema de las N-Reinas usando algoritmos genéticos.
+Desarrollar una aplicación que implemente el Problema del Vendedor Viajero a través del método de Sistema de Colonia de Hormigas utilizando el lenguajes de programación Python junto a las bibliotecas Numpy, Pandas, Sys y Time.
 
 El código contiene las siguientes funciones:
 
-- Generar un número real randómico entre [0 y 1].
+- Generar un número real randómico entre [0 y 1).
 - Generar un número entero randómico entre [1 y N].
-- Inicializar la población.
-- Calcular el fitness de un individuo.
-- Seleccionar un individuo usando el método de la ruleta.
-- Cruzar dos individuos con un punto de cruza.
-- Mutar un individuo.
-- Reducir la población. 
+- Inicializar una colonia de hormigas.
+- Inicializar la feromona.
+- Seleccionar el nuevo segmento de la ruta.
+- Actualizar el nivel local de feromona.
+- Actualizar el nivel global de feromona.
+- Evaluar la ruta generada por una hormiga.
+
 
 Además se contiene las siguientes parámetros:
 
-- Valor de la semilla.
-- Tamaño del tablero.
-- Tamaño de la población.
-- Probabilidad de cruza.
-- Probabilidad de mutación.
-- Número de iteraciones.
+- Archivo de entrada.
+- Valor semilla generador valores randómicos.
+- Tamaño de la colonia o número de hormigas.
+- Condición de término o número de iteraciones.
+- Factor de evaporación de la feromona (α).
+- El peso del valor de la heurística (β).
+- Valor de probabilidad límite (q0).
+
 
 ## Manual de Usuario 🛠️
-Ingresar a https://github.com/CPoblet/AMIN-Tarea1/, presionar el botón verde que dice "Code" y seleccionar posteriormente "Download ZIP".
+Ingresar a https://github.com/CPoblet/AMIN-Tarea2/, presionar el botón verde que dice "Code" y seleccionar posteriormente "Download ZIP".
 Una vez descargado el archivo AMIN-Tarea1-main.zip (Es necesario descargar WinRAR para descomprimir), se debe apretar click derecho y "Extraer aquí".
 Una vez descomprimido, se requerirá la aplicación visual studio code (descargable desde este link: https://code.visualstudio.com/).
 Una vez descargado e instalado el programa, se deberá ir a la pestaña "extensiones", buscar la siguiente extension e instalarla:
