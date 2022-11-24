@@ -26,10 +26,10 @@ def main(argv):
         matriz_coordenadas = pd.read_table(archivo_entrada, header=None, skiprows=6, skipfooter=1, delim_whitespace=True, engine='python').drop(0, axis=1).to_numpy(dtype=float)
         print(matriz_coordenadas)
 
-        solucion_optima = np.array([1,49,32,45,19,41,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22])
-        
+        solucion_optima = np.array([1,49,32,45,19,41,8,9,10,43,33,51,11,52,14,13,47,26,27,28,12,25,4,6,15,5,24,48,38,37,40,39,36,35,34,44,46,16,29,50,20,23,30,2,7,42,21,17,3,18,31,22])
+
         num_variables = matriz_coordenadas.shape[0]
-        
+
         matriz_distancias = np.full((num_variables, num_variables), fill_value= 0, dtype=float)
         for i in range(num_variables-1):
             for j in range(i+1, num_variables):
@@ -40,7 +40,7 @@ def main(argv):
         solucion_mejor = np.arange(0, num_variables)
         np.random.shuffle(solucion_mejor)
 
-        """     
+        """
         solucion_mejor_costo = solucion_calcular_costo(num_variables, solucion_mejor, matriz_distancias)
         solucion_mejor_iteracion = 0
 
@@ -49,6 +49,10 @@ def main(argv):
         print(matriz_feronoma) """
         
         print(matriz_distancias.shape)
+        print(solucion_mejor)
+        print(solucion_mejor.shape)
+        print(solucion_optima-1)
+        print(solucion_optima.shape)
         print(np.round(solucion_calcular_costo(num_variables, solucion_optima-1, matriz_distancias), decimals=4))
 
 
