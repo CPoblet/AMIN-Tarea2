@@ -3,7 +3,8 @@ import sys
 import numpy as np
 import pandas as pd
 
-# py main.py berlin52.tsp.txt 0 10 100 0.1 2.5 0.9
+# linea de comando
+# py main.py berlin52.tsp.txt 0 90 500 0.1 2.5 0.9
 
 def solucion_calcular_costo(n, s, c):
     aux = c[s[n-1]][s[0]]
@@ -11,32 +12,19 @@ def solucion_calcular_costo(n, s, c):
         aux += c[s[i]][s[i+1]]
     return aux
 
-def generar_ruleta(fitness):
-    suma = np.sum(fitness)
+def generar_ruleta(TxN):
+    suma = np.sum(TxN)
     ruleta = np.array([])
-    proporcion = fitness[0]/suma
+    proporcion = TxN[0]/suma
     ruleta = np.append(ruleta, proporcion)
-    for i in range(1, len(fitness)):
-        proporcion = fitness[i]/suma
+    for i in range(1, len(TxN)):
+        proporcion = TxN[i]/suma
         ruleta = np.append(ruleta, ruleta[i-1]+proporcion)
 
     rand = np.random.uniform(0, 1)
     for i in range(len(ruleta)):
         if rand <= ruleta[i]:
             return i
-
-def ruleta(TxN):
-    p = np.full_like(TxN, 0, dtype=np.longdouble)
-    TxN_sum = np.sum(TxN)
-    for j in range(len(TxN)):
-        p[j] = TxN[j]/TxN_sum
-    index = np.where(np.random.uniform(min(p), max(p)) < p)[0]
-    aux = 0
-    for j in index:
-        if p[j] > aux:
-            j0 = j
-            aux = p[j]
-    return j0
 
 
 def transicion(i, feronoma, heuristica, memoria, beta):
