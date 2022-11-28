@@ -11,6 +11,45 @@ def solucion_calcular_costo(n, s, c):
         aux += c[s[i]][s[i+1]]
     return aux
 
+def generar_ruleta(fitness):
+    suma = np.sum(fitness)
+    ruleta = np.array([])
+    proporcion = fitness[0]/suma
+    ruleta = np.append(ruleta, proporcion)
+    for i in range(1, len(fitness)):
+        proporcion = fitness[i]/suma
+        ruleta = np.append(ruleta, ruleta[i-1]+proporcion)
+
+    rand = np.random.uniform(0, 1)
+    for i in range(len(ruleta)):
+        if rand <= ruleta[i]:
+            return i
+
+def ruleta(TxN):
+    p = np.full_like(TxN, 0, dtype=np.longdouble)
+    TxN_sum = np.sum(TxN)
+    for j in range(len(TxN)):
+        p[j] = TxN[j]/TxN_sum
+    index = np.where(np.random.uniform(min(p), max(p)) < p)[0]
+    aux = 0
+    for j in index:
+        if p[j] > aux:
+            j0 = j
+            aux = p[j]
+    return j0
+
+
+def transicion(i, feronoma, heuristica, memoria, beta):
+    N = np.full_like(memoria, 0, dtype=np.longdouble)
+    for j in range(len(N)):
+        if memoria[j] == 0:
+            Tij = feronoma[i][j]
+            Nij = heuristica[i][j]
+            Nij_powB = math.pow(Nij, beta)
+            TxN = Tij*Nij_powB
+            N[j] = TxN
+    return N
+
 def main(argv):
     if (len(argv) == 8):
         archivo_entrada = argv[1]
@@ -67,8 +106,7 @@ def main(argv):
                     if q <= q0:
                         j0 = np.random.choice(np.where(TxN == TxN.max())[0])
                     else:
-                        j0 = ruleta(TxN)
-
+                        j0 = generar_ruleta(TxN)
                     Tij = (1-alpha)*matriz_feronoma[matriz_colonia[j][i]][j0] + alpha*Tij0
                     matriz_feronoma[matriz_colonia[j][i-1]][j0] = Tij
                     matriz_memoria[j][j0] = 1
@@ -84,41 +122,16 @@ def main(argv):
             deltaT = 1/(solucion_mejor_costo)
             for i in range(len(solucion_mejor)-1):
                 matriz_feronoma[solucion_mejor[i]][solucion_mejor[i+1]] = (1-alpha)*matriz_feronoma[solucion_mejor[i]][solucion_mejor[i+1]] + alpha*deltaT
+            matriz_feronoma[solucion_mejor[num_variables-1]][0] = matriz_feronoma[solucion_mejor[num_variables-1]][0]
             g+=1
             matriz_memoria = np.full_like(matriz_memoria, fill_value=0, dtype=int)
-            print(solucion_mejor_costo)
 
         print(solucion_mejor_costo)
-        print(solucion_mejor)
+        print(solucion_mejor+1)
 
 
     else:
         print('Error: Parámetros incorrectos')
-
-def ruleta(TxN):
-    p = np.full_like(TxN, 0, dtype=np.longdouble)
-    TxN_sum = np.sum(TxN)
-    for j in range(len(TxN)):
-        p[j] = TxN[j]/TxN_sum
-    index = np.where(np.random.uniform(min(p), max(p)) < p)[0]
-    aux = 0
-    for j in index:
-        if p[j] > aux:
-            j0 = j
-            aux = p[j]
-    return j0
-
-
-def transicion(i, feronoma, heuristica, memoria, beta):
-    N = np.full_like(memoria, 0, dtype=np.longdouble)
-    for j in range(len(N)):
-        if memoria[j] == 0:
-            Tij = feronoma[i][j]
-            Nij = heuristica[i][j]
-            Nij_powB = math.pow(Nij, beta)
-            TxN = Tij*Nij_powB
-            N[j] = TxN
-    return N
 
 if __name__ == '__main__':
     print(sys.argv)
