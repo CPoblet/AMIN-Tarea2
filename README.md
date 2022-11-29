@@ -42,9 +42,9 @@ Una vez instaladas se deberá ir a la pestaña archivo y abrir la carpeta descom
 
 Esto instalará el numpy el cual es necesario para la ejecución del programa, una vez finalizado escribir en la terminal el siguiente sin comillas:
 
-- "python main.py semilla tamaño_tablero tamaño_población probabilidad_cruza probabilidad_mutación número_iteraciones"
+- "python main.py semilla numero_hormigas iteraciones alpha beta q0"
 ~~~ 
- python main.py 1 8 40 90 5 40
+ Ejemplo del mejor resultado: py main.py berlin52.tsp.txt 0 90 500 0.1 2.5 0.9
 ~~~
 
 Los argumentos (semilla tamaño_tablero tamaño_población probabilidad_cruza probabilidad_mutación número_iteraciones) deben ser numero enteros positivos.
